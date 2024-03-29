@@ -1,0 +1,26 @@
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: convert-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: convert
+  template:
+    metadata:
+      labels:
+        app: convert
+    spec:
+      containers:
+        - image: $CONVERT_IMAGE
+          name: convert
+          env:
+            - name: GCP_PROJECT
+              value: $PROJECT
+            - name: SUB_ID
+              value: smartMeter-ms4-convert-sub
+            - name: TOPIC_NAME
+              value: smartMeter-ms4
+--- 
